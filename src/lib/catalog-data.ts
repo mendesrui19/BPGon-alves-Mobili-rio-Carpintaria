@@ -37,38 +37,6 @@ function album(slug: string, count: number): string[] {
 /** Projetos reais — fotos em public/images/catalog/{slug}/ */
 export const catalogItems: CatalogItem[] = [
   {
-    id: "01",
-    slug: "cozinha-design-personalizado",
-    title: "Cozinha por Medida",
-    subtitle: "Madeira · Pedra natural · Design personalizado",
-    category: "cozinhas",
-    location: "Braga",
-    year: "2024",
-    description:
-      "Transformando sonhos em realidade com a beleza e a funcionalidade da carpintaria. Cada detalhe desta cozinha foi pensado para unir praticidade e estilo, criando um espaço único e aconchegante.",
-    image: "/images/catalog/cozinha-design-personalizado/01.jpg",
-    images: album("cozinha-design-personalizado", 1),
-    featured: true,
-    span: "hero",
-    displayOrder: 1,
-  },
-  {
-    id: "02",
-    slug: "escadaria-madeira-microcimento",
-    title: "Escadas em Madeira e Corrimão",
-    subtitle: "Microcimento · LED integrado",
-    category: "escadarias",
-    location: "Braga",
-    year: "2025",
-    description:
-      "Escadas de madeira sob medida, com corrimãos perfeitos para um acabamento moderno. Combine com paredes em microcimento para um toque sofisticado. Transforme o seu espaço com elegância!",
-    image: "/images/catalog/escadaria-madeira-microcimento/01.jpg",
-    images: album("escadaria-madeira-microcimento", 1),
-    featured: true,
-    span: "tall",
-    displayOrder: 2,
-  },
-  {
     id: "03",
     slug: "projeto-bertrand",
     title: "Projeto Bertrand",
@@ -81,8 +49,8 @@ export const catalogItems: CatalogItem[] = [
     image: "/images/catalog/projeto-bertrand/01.jpg",
     images: album("projeto-bertrand", 18),
     featured: true,
-    span: "wide",
-    displayOrder: 3,
+    span: "hero",
+    displayOrder: 1,
   },
   {
     id: "04",
@@ -97,11 +65,45 @@ export const catalogItems: CatalogItem[] = [
     image: "/images/catalog/moradia-ca-palmeira/01.jpg",
     images: album("moradia-ca-palmeira", 25),
     featured: true,
+    span: "tall",
+    displayOrder: 2,
+  },
+  {
+    id: "01",
+    slug: "cozinha-design-personalizado",
+    title: "Cozinha por Medida",
+    subtitle: "Madeira · Pedra natural · Design personalizado",
+    category: "cozinhas",
+    location: "Braga",
+    year: "2024",
+    description:
+      "Transformando sonhos em realidade com a beleza e a funcionalidade da carpintaria. Cada detalhe desta cozinha foi pensado para unir praticidade e estilo, criando um espaço único e aconchegante.",
+    image: "/images/catalog/cozinha-design-personalizado/01.jpg",
+    images: album("cozinha-design-personalizado", 1),
+    featured: true,
+    span: "wide",
+    displayOrder: 3,
+  },
+  {
+    id: "02",
+    slug: "escadaria-madeira-microcimento",
+    title: "Escadas em Madeira e Corrimão",
+    subtitle: "Microcimento · LED integrado",
+    category: "escadarias",
+    location: "Braga",
+    year: "2025",
+    description:
+      "Escadas de madeira sob medida, com corrimãos perfeitos para um acabamento moderno. Combine com paredes em microcimento para um toque sofisticado. Transforme o seu espaço com elegância!",
+    image: "/images/catalog/escadaria-madeira-microcimento/01.jpg",
+    images: album("escadaria-madeira-microcimento", 1),
+    featured: true,
     displayOrder: 4,
   },
 ];
 
-export const featuredCatalog = catalogItems.filter((item) => item.featured);
+export const featuredCatalog = [...catalogItems].sort(
+  (a, b) => a.displayOrder - b.displayOrder,
+);
 
 export function getCatalogItem(slug: string) {
   return catalogItems.find((item) => item.slug === slug);

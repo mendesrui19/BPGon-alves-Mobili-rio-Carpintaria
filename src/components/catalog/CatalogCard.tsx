@@ -18,10 +18,10 @@ const ORDER_CLASS: Record<number, string> = {
 };
 
 const FULL_GRID_PLACEMENT: Record<string, string> = {
-  "01": "md:col-start-1 md:row-start-1 md:col-span-7 md:row-span-2",
-  "02": "md:col-start-8 md:row-start-1 md:col-span-5 md:row-span-2",
-  "03": "md:col-start-1 md:row-start-3 md:col-span-7",
-  "04": "md:col-start-8 md:row-start-3 md:col-span-5",
+  "03": "md:col-start-1 md:row-start-1 md:col-span-7 md:row-span-2",
+  "04": "md:col-start-8 md:row-start-1 md:col-span-5 md:row-span-2",
+  "01": "md:col-start-1 md:row-start-3 md:col-span-7",
+  "02": "md:col-start-8 md:row-start-3 md:col-span-5",
 };
 
 export function CatalogCard({ item, onOpen, fullGrid = false }: CatalogCardProps) {
