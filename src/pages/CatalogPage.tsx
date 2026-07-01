@@ -21,13 +21,15 @@ export function CatalogPage() {
   const [selectedItem, setSelectedItem] = useState<CatalogItem | null>(null);
   const [activeImage, setActiveImage] = useState(0);
 
-  const filtered = useMemo(
-    () =>
+  const filtered = useMemo(() => {
+    const items =
       activeCategory === "todos"
         ? catalogItems
-        : catalogItems.filter((item) => item.category === activeCategory),
-    [activeCategory],
-  );
+        : catalogItems.filter((item) => item.category === activeCategory);
+    return [...items].sort((a, b) => a.displayOrder - b.displayOrder);
+  }, [activeCategory]);
+
+  const showFullGrid = activeCategory === "todos" && filtered.length === catalogItems.length;
 
   const openItem = useCallback((item: CatalogItem, startIndex = 0) => {
     setSelectedItem(item);
@@ -115,13 +117,18 @@ export function CatalogPage() {
         </div>
 
         <div className="container py-14 sm:py-20 md:py-24">
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 auto-rows-auto">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 auto-rows-auto grid-flow-row">
             <AnimatePresence mode="popLayout">
               {filtered.map((item) => (
-                <CatalogCard key={item.id} item={item} onOpen={openItem} />
+                <CatalogCard
+                  key={item.id}
+                  item={item}
+                  onOpen={openItem}
+                  fullGrid={showFullGrid}
+                />
               ))}
             </AnimatePresence>
-          </motion.div>
+          </div>
         </div>
 
         <div className="container pb-20 sm:pb-28 text-center">

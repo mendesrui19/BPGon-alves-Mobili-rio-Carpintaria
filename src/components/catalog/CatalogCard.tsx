@@ -7,9 +7,24 @@ import { catalogCategories } from "../../lib/catalog-data";
 interface CatalogCardProps {
   item: CatalogItem;
   onOpen: (item: CatalogItem, startIndex?: number) => void;
+  fullGrid?: boolean;
 }
 
-export function CatalogCard({ item, onOpen }: CatalogCardProps) {
+const ORDER_CLASS: Record<number, string> = {
+  1: "order-1",
+  2: "order-2",
+  3: "order-3",
+  4: "order-4",
+};
+
+const FULL_GRID_PLACEMENT: Record<string, string> = {
+  "01": "md:col-start-1 md:row-start-1 md:col-span-7 md:row-span-2",
+  "02": "md:col-start-8 md:row-start-1 md:col-span-5 md:row-span-2",
+  "03": "md:col-start-1 md:row-start-3 md:col-span-7",
+  "04": "md:col-start-8 md:row-start-3 md:col-span-5",
+};
+
+export function CatalogCard({ item, onOpen, fullGrid = false }: CatalogCardProps) {
   const hasAlbum = item.images.length > 1;
   const [previewIndex, setPreviewIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -36,18 +51,25 @@ export function CatalogCard({ item, onOpen }: CatalogCardProps) {
   const categoryLabel = catalogCategories.find((c) => c.id === item.category)?.label;
   const previewSrc = hasAlbum ? item.images[previewIndex] : item.image;
 
-  const spanClass =
-    item.span === "hero"
-      ? "md:col-span-7 md:row-span-2 aspect-[4/5] md:aspect-auto md:min-h-[560px]"
+  const aspectClass =
+    item.span === "hero" || item.span === "tall"
+      ? "aspect-[4/5] md:aspect-auto md:min-h-[560px]"
       : item.span === "wide"
-        ? "md:col-span-7 aspect-[16/10]"
+        ? "aspect-[16/10]"
+        : "aspect-[4/3]";
+
+  const gridClass = fullGrid
+    ? FULL_GRID_PLACEMENT[item.id] ?? "md:col-span-6"
+    : item.span === "hero"
+      ? "md:col-span-7 md:row-span-2"
+      : item.span === "wide"
+        ? "md:col-span-7"
         : item.span === "tall"
-          ? "md:col-span-5 md:row-span-2 aspect-[3/4] md:aspect-auto md:min-h-[560px]"
-          : "md:col-span-5 aspect-[4/3]";
+          ? "md:col-span-5 md:row-span-2"
+          : "md:col-span-5";
 
   return (
     <motion.article
-      layout
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -57,7 +79,7 @@ export function CatalogCard({ item, onOpen }: CatalogCardProps) {
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
-      className={`group relative overflow-hidden cursor-pointer bg-bg-elevated ${spanClass}`}
+      className={`group relative overflow-hidden cursor-pointer bg-bg-elevated ${ORDER_CLASS[item.displayOrder] ?? ""} ${gridClass} ${aspectClass}`}
     >
       <div className="absolute inset-0">
         <AnimatePresence mode="wait">

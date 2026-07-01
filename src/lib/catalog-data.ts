@@ -17,6 +17,7 @@ export interface CatalogItem {
   images: string[];
   featured: boolean;
   span?: "wide" | "tall" | "hero";
+  displayOrder: number;
 }
 
 export const catalogCategories: { id: CatalogCategory; label: string }[] = [
@@ -49,6 +50,7 @@ export const catalogItems: CatalogItem[] = [
     images: album("cozinha-design-personalizado", 1),
     featured: true,
     span: "hero",
+    displayOrder: 1,
   },
   {
     id: "02",
@@ -64,6 +66,7 @@ export const catalogItems: CatalogItem[] = [
     images: album("escadaria-madeira-microcimento", 1),
     featured: true,
     span: "tall",
+    displayOrder: 2,
   },
   {
     id: "03",
@@ -79,6 +82,7 @@ export const catalogItems: CatalogItem[] = [
     images: album("projeto-bertrand", 18),
     featured: true,
     span: "wide",
+    displayOrder: 3,
   },
   {
     id: "04",
@@ -93,6 +97,7 @@ export const catalogItems: CatalogItem[] = [
     image: "/images/catalog/moradia-ca-palmeira/01.jpg",
     images: album("moradia-ca-palmeira", 25),
     featured: true,
+    displayOrder: 4,
   },
 ];
 
