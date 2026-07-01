@@ -8,7 +8,7 @@ export function Footer() {
       <div className="container">
         <div className="grid md:grid-cols-[1.4fr_1fr_1fr] gap-12 sm:gap-16 mb-14 sm:mb-20">
           <div>
-            <Logo size="lg" />
+            <Logo size="lg" variant="footer" />
             <p className="mt-8 copy-dark-muted max-w-[340px]">
               Carpintaria e mobiliário por medida em Braga. Cada peça, uma obra de arte.
             </p>

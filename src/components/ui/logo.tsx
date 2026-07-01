@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import { cn } from "../../lib/utils";
 
 const LOGO_SRC = "/images/brand/logo.png";
+const LOGO_FOOTER_SRC = "/images/brand/logo-footer.png";
 
 type LogoSize = "sm" | "md" | "lg";
+type LogoVariant = "default" | "footer";
 
 const sizeClasses: Record<LogoSize, string> = {
   sm: "h-10 sm:h-10 md:h-11",
@@ -14,18 +16,22 @@ const sizeClasses: Record<LogoSize, string> = {
 export function Logo({
   className,
   size = "md",
+  variant = "default",
 }: {
   className?: string;
   size?: LogoSize;
+  variant?: LogoVariant;
 }) {
+  const src = variant === "footer" ? LOGO_FOOTER_SRC : LOGO_SRC;
+
   return (
     <Link
       to="/"
-      className={cn("logo-wrap inline-flex shrink-0", className)}
+      className={cn("inline-flex shrink-0 relative z-10", className)}
       aria-label="BPGonçalves — página inicial"
     >
       <img
-        src={LOGO_SRC}
+        src={src}
         alt="BPGonçalves, Mobiliário & Carpintaria"
         className={cn("relative z-10 w-auto object-contain object-left", sizeClasses[size])}
       />

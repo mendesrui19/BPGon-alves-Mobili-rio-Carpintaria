@@ -2,8 +2,9 @@
 <html lang="pt-PT">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/images/brand/logo.png" />
-    <link rel="apple-touch-icon" href="/images/brand/logo.png" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/brand/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/brand/apple-touch-icon.png" />
     <meta name="theme-color" content="#1c1814" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="robots" content="index, follow" />
@@ -22,9 +23,155 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+    <link rel="preload" as="image" href="/images/brand/logo.png" />
+    <link rel="preload" as="image" href="/images/catalog/obra-04.jpg" />
+    <link rel="preload" as="video" href="/videos/hero-banner.mp4" type="video/mp4" />
+
+    <script>
+      (function () {
+        var progress = 0;
+        var trickleId = 0;
+        var loaderEl = null;
+        var barEl = null;
+
+        function setProgress(v) {
+          progress = v < progress ? progress : v;
+          if (barEl) barEl.style.width = progress + "%";
+        }
+
+        function hideLoader() {
+          var loader = loaderEl || document.getElementById("app-loader");
+          if (!loader || loader.getAttribute("data-done") === "1") return;
+          loader.setAttribute("data-done", "1");
+          if (trickleId) window.clearInterval(trickleId);
+          setProgress(100);
+          document.body.className = document.body.className.replace(/\bis-loading\b/g, "").trim();
+          window.setTimeout(function () {
+            loader.className = loader.className + " is-hidden";
+            window.setTimeout(function () {
+              if (loader.parentNode) loader.parentNode.removeChild(loader);
+            }, 650);
+          }, 180);
+        }
+
+        window.__setLoaderProgress = setProgress;
+        window.__hideAppLoader = hideLoader;
+
+        document.addEventListener("DOMContentLoaded", function () {
+          loaderEl = document.getElementById("app-loader");
+          barEl = document.getElementById("app-loader-bar");
+          document.body.className = (document.body.className + " is-loading").trim();
+          setProgress(6);
+          trickleId = window.setInterval(function () {
+            if (progress < 82) setProgress(progress + (progress < 45 ? 5 : 2));
+          }, 450);
+          window.setTimeout(hideLoader, 15000);
+        });
+      })();
+    </script>
+
+    <style>
+      body.is-loading {
+        overflow: hidden;
+      }
+      #app-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2147483647;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        background: #1c1814;
+        -webkit-transition: opacity 0.6s ease;
+        transition: opacity 0.6s ease;
+      }
+      #app-loader.is-hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #app-loader .al-logo {
+        width: 150px;
+        max-width: 56vw;
+        height: auto;
+        display: block;
+        -webkit-animation: alPulse 1.8s ease-in-out infinite;
+        animation: alPulse 1.8s ease-in-out infinite;
+      }
+      #app-loader .al-track {
+        margin-top: 30px;
+        width: 180px;
+        max-width: 60vw;
+        height: 2px;
+        background: rgba(236, 224, 200, 0.14);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      #app-loader .al-bar {
+        display: block;
+        height: 100%;
+        width: 0%;
+        background: #c9a86a;
+        border-radius: 2px;
+        -webkit-transition: width 0.35s ease;
+        transition: width 0.35s ease;
+      }
+      #app-loader .al-text {
+        margin-top: 18px;
+        font-family: "Jost", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(236, 224, 200, 0.55);
+      }
+      @-webkit-keyframes alPulse {
+        0%, 100% { opacity: 0.55; }
+        50% { opacity: 1; }
+      }
+      @keyframes alPulse {
+        0%, 100% { opacity: 0.55; }
+        50% { opacity: 1; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #app-loader .al-logo { -webkit-animation: none; animation: none; opacity: 1; }
+      }
+    </style>
   </head>
-  <body>
+  <body class="is-loading">
     <div id="root"></div>
+
+    <noscript>
+      <div style="max-width:640px;margin:80px auto;padding:0 24px;font-family:Arial,Helvetica,sans-serif;color:#ece0c8;text-align:center;">
+        <h1 style="font-weight:400;">BPGonçalves — Mobiliário &amp; Carpintaria</h1>
+        <p style="line-height:1.7;">Para uma melhor experiência, ative o JavaScript no seu navegador.</p>
+        <p style="line-height:1.7;">Contacte-nos: <a style="color:#c9a86a;" href="tel:+351936455181">936 455 181</a> ·
+          <a style="color:#c9a86a;" href="mailto:bpgorcamentos@gmail.com">bpgorcamentos@gmail.com</a></p>
+      </div>
+    </noscript>
+
+    <div id="app-loader" role="status" aria-live="polite" aria-label="A carregar">
+      <img class="al-logo" src="/images/brand/logo.png" alt="BPGonçalves, Mobiliário & Carpintaria" width="300" height="75" />
+      <div class="al-track"><span class="al-bar" id="app-loader-bar"></span></div>
+      <div class="al-text">A carregar</div>
+    </div>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -13,6 +13,7 @@ import {
   type CatalogCategory,
   type CatalogItem,
 } from "../lib/catalog-data";
+import { CatalogCard } from "../components/catalog/CatalogCard";
 import { business, SITE_URL } from "../lib/seo-data";
 
 export function CatalogPage() {
@@ -28,9 +29,9 @@ export function CatalogPage() {
     [activeCategory],
   );
 
-  const openItem = useCallback((item: CatalogItem) => {
+  const openItem = useCallback((item: CatalogItem, startIndex = 0) => {
     setSelectedItem(item);
-    setActiveImage(0);
+    setActiveImage(startIndex);
   }, []);
 
   const closeItem = useCallback(() => {
@@ -78,7 +79,7 @@ export function CatalogPage() {
       />
       <Nav catalogMode />
       <main className="bg-bg-base min-h-screen pt-[calc(var(--nav-height)+1rem)]">
-        <header className="container py-14 sm:py-20 md:py-32">
+        <header className="container pt-14 sm:pt-20 md:pt-28 pb-12 sm:pb-16 md:pb-20">
           <Link
             to="/"
             className="inline-flex items-center gap-3 meta-dark hover:text-champagne transition-colors duration-500 mb-8 sm:mb-12 touch-target"
@@ -89,14 +90,14 @@ export function CatalogPage() {
           <h1 className="display-xl text-cream max-w-[900px]">
             Catálogo de <span className="italic text-champagne">obras</span>
           </h1>
-          <p className="mt-8 copy-dark-muted max-w-[520px]">
+          <p className="mt-8 sm:mt-10 copy-dark-muted max-w-[520px] leading-relaxed">
             Projectos reais executados com rigor de atelier. Cada imagem, um compromisso
             com a madeira e o detalhe.
           </p>
         </header>
 
         <div className="sticky sticky-below-nav z-[150] bg-bg-base/90 backdrop-blur-2xl border-y border-cream/[0.06]">
-          <div className="container py-4 sm:py-5 flex gap-5 sm:gap-6 overflow-x-auto scrollbar-none -mx-1 px-1">
+          <div className="container py-5 sm:py-6 flex gap-6 sm:gap-8 overflow-x-auto scrollbar-none -mx-1 px-1">
             {catalogCategories.map((cat) => (
               <button
                 key={cat.id}
@@ -113,47 +114,11 @@ export function CatalogPage() {
           </div>
         </div>
 
-        <div className="container py-12 sm:py-16 md:py-24">
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
+        <div className="container py-14 sm:py-20 md:py-24">
+          <motion.div layout className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 auto-rows-auto">
             <AnimatePresence mode="popLayout">
               {filtered.map((item) => (
-                <motion.article
-                  layout
-                  key={item.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.6 }}
-                  onClick={() => openItem(item)}
-                  className={`group relative overflow-hidden cursor-pointer bg-bg-elevated ${
-                    item.span === "hero"
-                      ? "md:col-span-8 md:row-span-2 aspect-[4/5] md:aspect-auto md:min-h-[640px]"
-                      : item.span === "wide"
-                        ? "md:col-span-7 aspect-[16/10]"
-                        : item.span === "tall"
-                          ? "md:col-span-5 md:row-span-2 aspect-[3/4] md:aspect-auto md:min-h-[640px]"
-                          : "md:col-span-5 aspect-[4/3]"
-                  }`}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.8s] ease-out group-hover:scale-[1.03]"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-bg-base/90 via-bg-base/10 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-700" />
-                  <span className="absolute top-5 right-5 md:top-6 md:right-6 text-[0.5rem] tracking-[0.28em] uppercase text-cream/80 bg-bg-base/55 backdrop-blur-md px-3 py-1.5 border border-cream/10">
-                    {item.images.length} {item.images.length === 1 ? "foto" : "fotos"}
-                  </span>
-                  <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 md:p-10">
-                    <p className="text-[0.5rem] tracking-[0.32em] uppercase text-champagne/70 mb-2 sm:mb-3">
-                      {catalogCategories.find((c) => c.id === item.category)?.label} · {item.year}
-                    </p>
-                    <h2 className="font-display text-xl sm:text-2xl md:text-4xl font-light text-cream leading-tight">
-                      {item.title}
-                    </h2>
-                  </div>
-                </motion.article>
+                <CatalogCard key={item.id} item={item} onOpen={openItem} />
               ))}
             </AnimatePresence>
           </motion.div>

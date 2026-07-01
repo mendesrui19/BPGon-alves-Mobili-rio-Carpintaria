@@ -84,14 +84,14 @@ export function Nav({ catalogMode = false }: { catalogMode?: boolean }) {
         <motion.nav
           layout
           className={cn(
-            "w-full transition-[box-shadow,background,border-color] duration-700",
+            "nav-bar w-full transition-[box-shadow,background,border-color] duration-700",
             elevated ? "py-3.5 md:py-[18px]" : "py-4 md:py-[26px]",
             elevated
               ? "bg-bg-base/88 backdrop-blur-2xl border-b border-cream/[0.08] shadow-[0_18px_60px_oklch(0%_0_0/0.28)]"
               : "bg-bg-base/8 backdrop-blur-[6px] border-b border-cream/[0.03]",
           )}
         >
-          <div className="container flex items-center justify-between gap-4">
+          <div className="container relative z-10 flex items-center justify-between gap-4">
               <div className="min-w-0">
                 <Logo />
               </div>
