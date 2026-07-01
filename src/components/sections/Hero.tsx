@@ -27,7 +27,7 @@ export function Hero() {
   }, []);
 
   return (
-    <header className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden bg-bg-base">
+    <header className="relative min-h-[100svh] flex flex-col justify-start md:justify-end overflow-hidden bg-bg-base pt-[calc(var(--nav-height)+env(safe-area-inset-top,0px))]">
       {/* Background */}
       <div className="absolute inset-0">
         <motion.div
@@ -58,9 +58,10 @@ export function Hero() {
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-r from-bg-base via-bg-base/75 to-bg-base/20" />
         <div className="absolute inset-0 bg-gradient-to-t from-bg-base via-bg-base/40 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-28 sm:h-32 bg-gradient-to-b from-bg-base/85 via-bg-base/35 to-transparent pointer-events-none" />
       </div>
 
-      <div className="relative z-10 container pb-12 sm:pb-16 md:pb-24 pt-28 sm:pt-32 md:pt-40">
+      <div className="relative z-10 container pb-12 sm:pb-16 md:pb-24 pt-5 sm:pt-8 md:pt-16 flex-1 flex flex-col justify-end md:block">
         <div className="grid lg:grid-cols-[1fr_auto] gap-10 lg:gap-20 items-end">
           <motion.div
             initial={{ opacity: 0, y: 40 }}

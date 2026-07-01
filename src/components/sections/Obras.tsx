@@ -13,7 +13,7 @@ export function Obras() {
           <div>
             <SectionLabel>Portfólio</SectionLabel>
             <h2 className="display-lg text-cream">
-              Obras <span className="italic text-champagne">seleccionadas</span>
+              Obras
             </h2>
           </div>
           <PremiumButton href="/catalogo" variant="ghost" className="!px-0">

@@ -10,6 +10,7 @@ declare global {
 }
 
 const CRITICAL_IMAGES = [
+  "/images/brand/loader-logo.png",
   "/images/brand/logo.png",
   "/images/brand/logo-footer.png",
   "/images/catalog/obra-04.jpg",
