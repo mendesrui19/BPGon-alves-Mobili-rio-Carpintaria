@@ -1,0 +1,5 @@
+# SPA fallback — todas as rotas servem index.html
+/*    /index.html   200
+
+# Redirect opcional — só funciona se o .com antigo apontar DNS para este hosting
+# https://www.serralhariarinos.com/*  https://www.serralhariarinos.pt/:splat  301!
