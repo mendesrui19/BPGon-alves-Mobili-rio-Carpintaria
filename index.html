@@ -38,6 +38,9 @@
         var ringEl = null;
         var pctEl = null;
         var ringLen = 289.1;
+        var loaderStartedAt = Date.now();
+        var MIN_LOADER_MS = 1000;
+        var hideScheduled = false;
 
         function setProgress(v) {
           progress = v < progress ? progress : v;
@@ -46,7 +49,7 @@
           if (pctEl) pctEl.textContent = progress + "%";
         }
 
-        function hideLoader() {
+        function doHideLoader() {
           var loader = loaderEl || document.getElementById("app-loader");
           if (!loader || loader.getAttribute("data-done") === "1") return;
           loader.setAttribute("data-done", "1");
@@ -61,10 +64,19 @@
           }, 180);
         }
 
+        function hideLoader() {
+          if (hideScheduled) return;
+          hideScheduled = true;
+          var elapsed = Date.now() - loaderStartedAt;
+          var wait = elapsed < MIN_LOADER_MS ? MIN_LOADER_MS - elapsed : 0;
+          window.setTimeout(doHideLoader, wait);
+        }
+
         window.__setLoaderProgress = setProgress;
         window.__hideAppLoader = hideLoader;
 
         document.addEventListener("DOMContentLoaded", function () {
+          loaderStartedAt = Date.now();
           loaderEl = document.getElementById("app-loader");
           barEl = document.getElementById("app-loader-bar");
           ringEl = document.getElementById("app-loader-ring");
