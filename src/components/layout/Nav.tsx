@@ -92,11 +92,11 @@ export function Nav({ catalogMode = false }: { catalogMode?: boolean }) {
           )}
         >
           <div className="container relative z-10 flex items-center justify-between gap-4">
-              <div className="min-w-0">
-                <Logo />
+              <div className="min-w-0 shrink">
+                <Logo size="sm" className="max-w-[min(100%,13.5rem)] sm:max-w-none" />
               </div>
 
-              <ul className="hidden lg:flex items-center gap-10 list-none m-0 p-0">
+              <ul className="hidden xl:flex items-center gap-7 xl:gap-9 list-none m-0 p-0 shrink-0">
                 {navItems.map((item, i) => (
                   <NavLink
                     key={item.href}
@@ -110,7 +110,7 @@ export function Nav({ catalogMode = false }: { catalogMode?: boolean }) {
               </ul>
 
               <motion.div
-                className="hidden lg:block"
+                className="hidden xl:block shrink-0"
                 initial={{ opacity: 0, x: 16 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.55, ease }}
@@ -121,7 +121,7 @@ export function Nav({ catalogMode = false }: { catalogMode?: boolean }) {
               </motion.div>
 
               <motion.button
-                className="flex lg:hidden flex-col justify-center gap-[7px] p-3 -mr-1 cursor-pointer z-[210] touch-target"
+                className="flex xl:hidden flex-col justify-center gap-[7px] p-3 -mr-1 cursor-pointer z-[210] touch-target shrink-0"
                 onClick={() => setIsOpen(!isOpen)}
                 aria-label="Menu"
                 aria-expanded={isOpen}

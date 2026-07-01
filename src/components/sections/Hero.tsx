@@ -27,9 +27,9 @@ export function Hero() {
   }, []);
 
   return (
-    <header className="relative min-h-[100svh] flex flex-col justify-start md:justify-end overflow-hidden bg-bg-base pt-[calc(var(--nav-height)+env(safe-area-inset-top,0px))]">
+    <header className="relative min-h-[100svh] flex flex-col justify-start md:justify-end overflow-x-hidden bg-bg-base pt-[calc(var(--nav-height)+env(safe-area-inset-top,0px))] pb-[env(safe-area-inset-bottom,0px)]">
       {/* Background */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 overflow-hidden">
         <motion.div
           initial={{ scale: 1.08, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -61,7 +61,7 @@ export function Hero() {
         <div className="absolute inset-x-0 top-0 h-28 sm:h-32 bg-gradient-to-b from-bg-base/85 via-bg-base/35 to-transparent pointer-events-none" />
       </div>
 
-      <div className="relative z-10 container pb-12 sm:pb-16 md:pb-24 pt-5 sm:pt-8 md:pt-16 flex-1 flex flex-col justify-end md:block">
+      <div className="relative z-10 container pb-10 sm:pb-16 md:pb-24 pt-4 sm:pt-8 md:pt-16">
         <div className="grid lg:grid-cols-[1fr_auto] gap-10 lg:gap-20 items-end">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -71,7 +71,7 @@ export function Hero() {
           >
             <SectionLabel>Braga · Desde a origem</SectionLabel>
 
-            <h1 className="display-xl text-cream mb-6 sm:mb-8">
+            <h1 className="display-xl text-cream mb-5 sm:mb-8">
               <span className="block italic font-light">Mobiliário</span>
               <span className="block font-normal text-champagne">& Carpintaria</span>
               <span className="block text-[0.45em] mt-3 sm:mt-4 tracking-[0.12em] not-italic font-light text-cream/65">
@@ -79,10 +79,10 @@ export function Hero() {
               </span>
             </h1>
 
-            <p className="copy-dark max-w-[540px] mb-4">
+            <p className="copy-dark max-w-[540px] mb-3 sm:mb-4 text-[0.9375rem] sm:text-base leading-relaxed">
               {business.bio}
             </p>
-            <p className="copy-pull max-w-[500px] mb-8 sm:mb-10 md:mb-12 !text-champagne/85">
+            <p className="copy-pull max-w-[500px] mb-6 sm:mb-10 md:mb-12 !text-champagne/85 text-base sm:text-lg leading-relaxed">
               {business.motto} — cada projeto pensado, fabricado e montado com rigor de atelier.
             </p>
 
@@ -99,7 +99,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className="lg:hidden grid grid-cols-3 gap-4 sm:gap-6 pt-8 mt-8 border-t border-cream/10"
+              className="hidden sm:grid lg:hidden grid-cols-3 gap-4 sm:gap-6 pt-6 sm:pt-8 mt-6 sm:mt-8 border-t border-cream/10"
             >
               <div>
                 <p className="font-display text-3xl sm:text-4xl font-light text-champagne leading-none">{business.foundedYear}</p>
@@ -144,7 +144,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="relative z-10 container pb-6 sm:pb-8 flex items-center gap-4"
+        className="relative z-10 container pb-8 sm:pb-10 flex items-center gap-4 shrink-0"
       >
         <div className="h-px flex-1 max-w-[80px] bg-champagne/30 origin-left animate-line-grow" />
         <span className="meta-dark">Descobrir</span>
